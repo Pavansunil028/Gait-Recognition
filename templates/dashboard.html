@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block body %}
+<!-- partial -->
+<div class="main-panel">
+  <div class="content-wrapper pb-0">
+
+    <!-- Add total patients, reports, and physiotherapists cards here -->
+    <div class="row">
+      <div class="col-md-4 grid-margin stretch-card">
+        <div class="card card-hover">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <i class="mdi mdi-account mdi-36px text-primary"></i>
+              <div class="ml-3">
+                <h4 class="card-title">Total Patients</h4>
+                <h3 class="font-weight-bold">{{ total_patients }}</h3>
+                <p class="text-muted">Total number of registered patients.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 grid-margin stretch-card">
+        <div class="card card-hover">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <i class="mdi mdi-file-document mdi-36px text-success"></i>
+              <div class="ml-3">
+                <h4 class="card-title">Total Patient Reports</h4>
+                <h3 class="font-weight-bold">{{ total_reports }}</h3>
+                <p class="text-muted">Total number of patient reports submitted.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 grid-margin stretch-card">
+        <div class="card card-hover">
+          <div class="card-body">
+            <div class="d-flex align-items-center">
+              <i class="mdi mdi-thermometer mdi-36px text-danger"></i>
+              <div class="ml-3">
+                <h4 class="card-title">Total Physiotherapists</h4>
+                <h3 class="font-weight-bold">{{ total_physiotherapists }}</h3>
+                <p class="text-muted">Total number of registered physiotherapists.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- content-wrapper ends -->
+{% endblock body %}

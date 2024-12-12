@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block body %}
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">Manage Patients</h3>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Patients</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"> Manage Patients </li>
+                </ol>
+              </nav>
+            </div>
+
+
+            <div class="container">
+              {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                      {% for category, message in messages %}
+                          <div class="alert alert-{{ category }}">
+                              {{ message }}
+                          </div>
+                      {% endfor %}
+                  {% endif %}
+              {% endwith %}
+              
+           
+          </div>
+
+
+
+
+
+            <div class="row">
+
+
+
+         
+              <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Add Patient</h4>
+                        <form method="POST" action="{{ url_for('add_patient') }}" class="form-inline">
+                            <div class="form-group mb-2">
+                                <label for="patientName" class="sr-only">Name</label>
+                                <input type="text" class="form-control" id="patientName" name="name" placeholder="Patient Name" required />
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <label for="patientAge" class="sr-only">Age</label>
+                                <input type="number" class="form-control" id="patientAge" name="age" placeholder="Age" required />
+                            </div>
+                            <div class="form-group mb-2">
+                                <label for="patientDiagnosis" class="sr-only">Diagnosis</label>
+                                <input type="text" class="form-control" id="patientDiagnosis" name="diagnosis" placeholder="Diagnosis" required />
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Add Patient</button>
+                        </form>
+
+                        <h4 class="card-title mt-4">Existing Patients</h4>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Diagnosis</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for patient in patients %}
+                                    <tr>
+                                        <td>{{ patient.name }}</td>
+                                        <td>{{ patient.age }}</td>
+                                        <td>{{ patient.diagnosis }}</td>
+                                        <td>
+                                 {#           <a href="{{ url_for('edit_patient', id=patient.id) }}" class="btn btn-warning btn-sm">Edit</a>#}
+                                            <form action="{{ url_for('delete_patient', id=patient.id) }}" method="POST" style="display:inline;">
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+             
+            </div>
+          </div>
+        
+
+
+          {% endblock body %}

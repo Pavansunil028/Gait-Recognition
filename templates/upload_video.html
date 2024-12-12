@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block body %}
+        <!-- partial -->
+        <div class="main-panel">
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">Upload and Detect</h3>
+              <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item"><a href="#">Detect</a></li>
+                  <li class="breadcrumb-item active" aria-current="page"> Upload </li>
+                </ol>
+              </nav>
+            </div>
+            <div class="row">
+
+
+
+                <div class="container">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    
+                 
+                </div>
+
+
+
+
+
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Upload Video</h4>
+                            <p class="card-description">Choose a patient and upload a video</p>
+                            <form class="forms-sample" method="POST" enctype="multipart/form-data" action="{{ url_for('upload_video') }}">
+                                <div class="form-group">
+                                    <label for="patientSelect">Select Patient</label>
+                                    <select class="form-control" id="patientSelect" name="patient_id" required>
+                                        <option value="">Choose a patient</option>
+                                        {% for patient in patients %}
+                                            <option value="{{ patient.id }}">{{ patient.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="videoUpload">Upload Video</label>
+                                    <input type="file" class="form-control" id="videoUpload" name="video_file" accept="video/mp4" required />
+                                </div>
+                                <button type="submit" class="btn btn-primary mr-2">Upload</button>
+                                <button type="button" class="btn btn-light" onclick="window.location.href='{{ url_for('dashboard') }}'">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8 grid-margin stretch-card">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Video Display</h4>
+                          
+                
+                            <h5 class="mt-4">How It Works</h5>
+                            <p>
+                                This section allows healthcare professionals to upload patient gait videos for analysis. The following steps outline the process:
+                            </p>
+                            <ol>
+                                <li>
+                                    <strong>Patient Details:</strong> Choose patient information for getting relevant medical history.
+                                </li>
+                                <li>
+                                    <strong>Upload Gait Video:</strong> Choose the patient’s recorded gait video from your device and upload it to the system.
+                                </li>
+                                <li>
+                                    <strong>Real-Time Processing:</strong> Upon upload, the video will be processed in real-time. A new tab will open in the taskbar indicating that the processing is underway.
+                                </li>
+                                <li>
+                                    <strong>Gait Detection:</strong> The system will analyze the video to detect gait patterns with confidence levels displayed for accuracy.
+                                </li>
+                                <li>
+                                    <strong>Generate Report:</strong> After processing, a detailed report will be generated, summarizing the findings and providing insights into the patient’s gait.
+                                </li>
+                            </ol>
+                
+                            <p class="mt-3">This workflow ensures a comprehensive analysis of the patient's gait, facilitating better diagnosis and treatment planning.</p>
+                        </div>
+                    </div>
+                </div>
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+    
+          {% endblock body %}

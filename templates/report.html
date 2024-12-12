@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="main-panel">
+    <div class="content-wrapper">
+        <div class="page-header">
+            <h3 class="page-title">Manage Patients Report</h3>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Patients</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"> Manage Reports </li>
+                </ol>
+            </nav>
+        </div>
+
+        <div class="container">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        <div class="row">
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Filter Report</h4>
+                        <form method="POST" action="{{ url_for('physiotherapist_report') }}" class="form-inline">
+                            <div class="form-group mb-2">
+                                <label for="patientName" class="sr-only">Name</label>
+                                <input type="text" class="form-control" id="patientName" name="patient_name" placeholder="Patient Name" />
+                            </div>
+                            <div class="form-group mx-sm-3 mb-2">
+                                <label for="reportDate" class="sr-only">Date</label>
+                                <input type="date" class="form-control" id="reportDate" name="report_date" />
+                            </div>
+                            <button type="submit" class="btn btn-primary mb-2">Filter Reports</button>
+                        </form>
+
+                        <h4 class="card-title mt-4">Patients Reports</h4>
+                        {% if reports %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Age</th>
+                                    <th>Diagnoised for</th>
+                                    <th>Result</th>
+                                    <th>Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for report in reports %}
+                                    <tr>
+                                        <td>{{ report.patient_name }}</td>
+                                        <td>{{ report.age }}</td>
+                                        <td>{{ report.diagnosis }}</td>
+                                        <td>{{ report.result }}</td>
+                                        <td>{{ report.date }}</td>
+                                        <td>
+                                            <a href="{{ url_for('static', filename=report.filepath[7:].replace('\\', '/')) }}" class="btn btn-warning btn-sm">View</a>
+
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <p>No reports available for this physiotherapist.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock body %}
